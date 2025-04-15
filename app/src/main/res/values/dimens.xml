@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/dimens.xml -->
+<resources>
+    <!--状态栏内图标-->
+    <dimen name="statusBar_item_height">30dp</dimen>
+    <!--状态栏内文字-->
+    <dimen name="statusBar_text_height">25sp</dimen>
+    <!--状态栏图标距离顶部-->
+    <dimen name="statusBar_item_marginTop">10dp</dimen>
+    <!--状态栏高度-->
+    <dimen name="statusBar_height">50dp</dimen>
+    <!--一半的状态栏高度-->
+    <dimen name="statusBar_height_half">25dp</dimen>
+    <!--更高的状态栏高度-->
+    <dimen name="statusBar_higher">65dp</dimen>
+    <!--最高的状态栏高度-->
+    <dimen name="statusBar_highest">80dp</dimen>
+    <!--登录按钮直径-->
+    <dimen name="login_button_diameter">100dp</dimen>
+    <!--图标直径-->
+    <dimen name="icon_diameter">40dp</dimen>
+    <!--头像直径-->
+    <dimen name="avatar_diameter">80dp</dimen>
+    <!--界面的padding-->
+    <dimen name="padding">20dp</dimen>
+</resources>

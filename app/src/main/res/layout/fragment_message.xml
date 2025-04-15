@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--主要内容-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding"
+            android:orientation="vertical">
+            <!--登录前-->
+            <ViewStub
+                android:id="@+id/message_login_stub"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout="@layout/fragment_message_login_layout"/>
+            <!--登录后-->
+            <ViewStub
+                android:id="@+id/message_logged_in_stub"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout="@layout/fragment_message_logged_in_layout"/>
+        </LinearLayout>
+
+        <!--顶部状态栏-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/statusBar_height"
+            android:layout_gravity="top"
+            android:background="@color/whiteSmoke"
+            android:orientation="horizontal">
+
+            <!--第一项-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/statusBar_height"
+                android:text="@string/bottom_menu_position_center_title"
+                android:layout_marginLeft="@dimen/statusBar_height_half"
+                android:layout_marginRight="@dimen/statusBar_height_half"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="30sp"/>
+            <!--第二项-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/statusBar_height_half"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="@string/bottom_menu_position_center_subtitle"/>
+                <ImageView
+                    android:layout_width="@dimen/statusBar_height_half"
+                    android:layout_height="@dimen/statusBar_height_half"
+                    android:src="@drawable/clean"/>
+            </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp"/>
+            <!--第三项-->
+            <org.nuist.blogapp.custom.CircleImageView
+                android:layout_width="@dimen/statusBar_item_height"
+                android:layout_height="@dimen/statusBar_item_height"
+                android:layout_marginLeft="@dimen/statusBar_height_half"
+                android:layout_marginRight="@dimen/statusBar_height_half"
+                android:layout_marginTop="@dimen/statusBar_item_marginTop"
+                android:src="@drawable/message_settings"/>
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

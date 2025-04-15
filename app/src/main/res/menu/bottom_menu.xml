@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/bottom_menu_left"
+        android:title="@string/bottom_menu_position_left"
+        app:showAsAction="always"
+        android:icon="@drawable/millennium"/>
+
+    <item
+        android:id="@+id/bottom_menu_center"
+        android:title="@string/bottom_menu_position_center"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/trinity"/>
+
+    <item
+        android:id="@+id/bottom_menu_right"
+        android:title="@string/bottom_menu_position_right"
+        app:showAsAction="always"
+        android:icon="@drawable/etc"/>
+
+</menu>

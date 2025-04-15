@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteSmoke"
+    tools:context=".view.activity.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding"
+        android:orientation="vertical">
+        <!--单选框-->
+        <RadioGroup
+            android:id="@+id/login_choices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/statusBar_height"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/login_choice_email"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/statusBar_height"
+                android:text="@string/login_email"
+                android:textSize="@dimen/statusBar_text_height"
+                android:gravity="center"
+                android:padding="@dimen/statusBar_item_marginTop"
+                android:button="@null"
+                android:checked="true"
+                android:textColor="@color/radio_text_color" />
+
+            <RadioButton
+                android:id="@+id/login_choice_account"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/statusBar_height"
+                android:text="@string/login_password"
+                android:textSize="@dimen/statusBar_text_height"
+                android:gravity="center"
+                android:padding="@dimen/statusBar_item_marginTop"
+                android:button="@null"
+                android:textColor="@color/radio_text_color" />
+        </RadioGroup>
+
+        <!--邮箱登录-->
+        <ViewStub
+            android:id="@+id/login_stub_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/activity_login_email"/>
+        <!--账密登录-->
+        <ViewStub
+            android:id="@+id/login_stub_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout="@layout/activity_login_account"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/statusBar_height"
+        android:background="@color/white"/>
+
+    <ImageView
+        android:id="@+id/login_choice_back"
+        android:layout_width="@dimen/statusBar_item_height"
+        android:layout_height="@dimen/statusBar_item_height"
+        android:layout_marginTop="@dimen/statusBar_item_marginTop"
+        android:layout_marginRight="@dimen/statusBar_height_half"
+        android:layout_marginLeft="@dimen/statusBar_height_half"
+        android:src="@drawable/back"/>
+</FrameLayout>

@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">BlogApp</string>
+    <string name="bottom_menu_position_left">首页</string>
+    <string name="bottom_menu_position_center">消息</string>
+    <string name="bottom_menu_position_center_title">消息</string>
+    <string name="bottom_menu_position_center_subtitle">清除未读</string>
+    <string name="bottom_menu_position_center_btm">登录 注册</string>
+    <string name="bottom_menu_position_center_btm_text">登录账号，收取你的评论、点赞、私信</string>
+    <string name="bottom_menu_position_center_menu_first">评论和@</string>
+    <string name="bottom_menu_position_center_menu_second">赞和收藏</string>
+    <string name="bottom_menu_position_center_menu_third">新增粉丝</string>
+
+
+    <string name="bottom_menu_position_right">我的</string>
+    <string name="userInfo_first">关注</string>
+    <string name="userInfo_second">粉丝</string>
+    <string name="userInfo_third">访问</string>
+    <string name="userInfo_fourth">排名</string>
+    <string name="user_menu_left_first">浏览历史</string>
+    <string name="user_menu_left_second">收藏夹</string>
+    <string name="creation_menu_left_first">内容管理</string>
+    <string name="creation_menu_left_second">内容数据</string>
+    <string name="login_email">邮箱登录</string>
+    <string name="login_password">账密登录</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

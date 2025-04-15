@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="scale_type" format="enum">
+            <enum name="center_crop" value="0"/>
+            <enum name="center_inside" value="1"/>
+            <enum name="fit_center" value="2"/>
+        </attr>
+    </declare-styleable>
+
+</resources>
