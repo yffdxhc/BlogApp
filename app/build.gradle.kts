@@ -55,5 +55,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     /*Markwon的依赖*/
     implementation ("io.noties.markwon:core:4.6.2")
-    implementation ("io.noties.markwon:markdown:4.6.2")
+    implementation ("io.noties.markwon:image:4.6.2")
+    implementation ("io.noties.markwon:image-glide:4.6.2")
+
 }

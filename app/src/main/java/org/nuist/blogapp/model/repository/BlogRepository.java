@@ -51,4 +51,31 @@ public class BlogRepository {
         });
         return blogsRecommended;
     }
+
+    public MutableLiveData<String> getBlogDocument(String blog_id) {
+        MutableLiveData<String> blogDocument = new MutableLiveData<>();
+        Call<Result<String>> call = blogService.getBlogContent(blog_id);
+        call.enqueue(new retrofit2.Callback<Result<String>>() {
+            @Override
+            public void onResponse(Call<Result<String>> call, Response<Result<String>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<String> result = response.body();
+                    if (result.isSuccess() && result.getData() != null) {
+                        Log.d(TAG, "获取博客内容成功: " + result);
+                        blogDocument.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "获取博客内容失败: " + result.getMessage());
+                    }
+                } else {
+                    Log.e(TAG, "响应未成功或响应体为空");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<String>> call, Throwable t) {
+
+            }
+        });
+        return blogDocument;
+    }
 }
