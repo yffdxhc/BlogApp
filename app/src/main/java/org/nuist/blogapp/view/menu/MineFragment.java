@@ -11,15 +11,23 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.nuist.blogapp.MainActivity;
 import org.nuist.blogapp.R;
+import org.nuist.blogapp.ViewModel.UserViewModel;
 import org.nuist.blogapp.databinding.FragmentMineBinding;
+import org.nuist.blogapp.model.TokenManager;
 import org.nuist.blogapp.view.activity.LoginActivity;
+
+import java.util.Objects;
 
 public class MineFragment extends Fragment {
     private final static String TAG ="MineFragment";
     private FragmentMineBinding binding;
+    private UserViewModel userViewModel;
+    private TokenManager tokenManager;
 
     // 未登录布局
     private ViewStub loginStub;
@@ -33,11 +41,15 @@ public class MineFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        tokenManager = new TokenManager(requireActivity());
+        Log.d(TAG, "onCreate: 观察token-"+tokenManager.getToken());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: ");
         binding = FragmentMineBinding.inflate(inflater,container,false);
 
         loginStub = binding.loginStub.getViewStub();
@@ -45,13 +57,19 @@ public class MineFragment extends Fragment {
 
         // 设置图片点击事件
         setLoginIconClickListener();
-
         // 未登录默认布局
         showLoginLayout();
-        // 处于登录状态时切换布局
-        if (MainActivity.loginStatus){
-            showLoggedInLayout();
-        }
+        // 根据token更换布局
+        userViewModel.getToken().observe(getActivity(), new Observer<String>(){
+            @Override
+            public void onChanged(String s) {
+                if (s != null && !s.isEmpty()){
+                    showLoggedInLayout();
+                }else{
+                    showLoginLayout();
+                }
+            }
+        });
 
         return binding.getRoot();
     }

@@ -2,23 +2,36 @@ package org.nuist.blogapp.view.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.nuist.blogapp.R;
+import org.nuist.blogapp.ViewModel.UserViewModel;
 import org.nuist.blogapp.custom.CustomInputView;
+
+import java.util.HashMap;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * 登录界面
  */
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
+
+    // ViewModel
+    private UserViewModel userViewModel;
 
     // 邮箱布局
     private ViewStub loginStubEmail;
@@ -35,9 +48,11 @@ public class LoginActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        userViewModel = new ViewModelProvider(LoginActivity.this).get(UserViewModel.class);
         loginStubEmail = findViewById(R.id.login_stub_email);
         loginStubAccount = findViewById(R.id.login_stub_account);
         loginChoice = findViewById(R.id.login_choices);
@@ -128,6 +143,42 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        // 登录按钮，在这里获取token
+        loginStubAccount.setOnInflateListener(new ViewStub.OnInflateListener() {
+            @Override
+            public void onInflate(ViewStub stub, View inflated) {
+                CustomInputView accountInput = inflated.findViewById(R.id.account_input);
+                CustomInputView passwordInput = inflated.findViewById(R.id.password_input);
+                Button loginButton = inflated.findViewById(R.id.btn_account_login);
+                loginButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String account = accountInput.getText();
+                        String password = passwordInput.getText();
+                        if (account.isEmpty() || password.isEmpty()) {
+                            Toast.makeText(LoginActivity.this, "请输入账号和密码", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Log.d(TAG, "登录按钮loginStubAccount: 账号"+ account+ "密码"+ password);
+                        userViewModel.setToken(new HashMap<String, RequestBody>(){{
+                            put("user_id", RequestBody.create(MediaType.parse("text/plain"), account));
+                            put("password", RequestBody.create(MediaType.parse("text/plain"), password));
+                        }}).observe(LoginActivity.this, new Observer<String>() {
+                            @Override
+                            public void onChanged(String s) {
+                                if (s != null && !s.isEmpty()) {
+                                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }else {
+                                    Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
             }
         });
     }

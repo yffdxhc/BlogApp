@@ -50,4 +50,10 @@ dependencies {
     /*Glide的依赖*/
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+    /*Retrofit的依赖*/
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    /*Markwon的依赖*/
+    implementation ("io.noties.markwon:core:4.6.2")
+    implementation ("io.noties.markwon:markdown:4.6.2")
 }

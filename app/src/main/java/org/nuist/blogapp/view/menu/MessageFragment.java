@@ -40,9 +40,6 @@ public class MessageFragment extends Fragment{
         // 未登录默认布局
         showLoginLayout();
 
-        if (MainActivity.loginStatus){
-            showLoggedInLayout();
-        }
         return binding.getRoot();
     }
     /**

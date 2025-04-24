@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">BlogApp</string>
+    <string name="app_name">碧蓝档案</string>
+    <!--首页-->
     <string name="bottom_menu_position_left">首页</string>
+    <string name="bottom_menu_position_left_search_text">博客搜索</string>
+
+    <!--消息-->
     <string name="bottom_menu_position_center">消息</string>
     <string name="bottom_menu_position_center_title">消息</string>
     <string name="bottom_menu_position_center_subtitle">清除未读</string>
@@ -11,6 +15,7 @@
     <string name="bottom_menu_position_center_menu_third">新增粉丝</string>
 
 
+    <!--我的-->
     <string name="bottom_menu_position_right">我的</string>
     <string name="userInfo_first">关注</string>
     <string name="userInfo_second">粉丝</string>

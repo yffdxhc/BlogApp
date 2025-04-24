@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationBarView;
 
 import org.nuist.blogapp.databinding.ActivityMainBinding;
+import org.nuist.blogapp.view.menu.HomeFragment;
 import org.nuist.blogapp.view.menu.MessageFragment;
 import org.nuist.blogapp.view.menu.MineFragment;
 
@@ -27,9 +28,6 @@ import org.nuist.blogapp.view.menu.MineFragment;
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     private ActivityMainBinding binding;
-
-    // todo暂存登录状态
-    public static boolean loginStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 // 获取点击的id
                 Integer id = item.getItemId();
                 if (id==R.id.bottom_menu_left){
-                    // todo
+                    fragmentTransaction.replace(R.id.frame_layout,new HomeFragment());
                 }else if (id==R.id.bottom_menu_center){
                     fragmentTransaction.replace(R.id.frame_layout,new MessageFragment());
                 }else if (id==R.id.bottom_menu_right){
@@ -59,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        binding.btnMenu.setSelectedItemId(R.id.bottom_menu_left);
+
         binding.btnMenu.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {

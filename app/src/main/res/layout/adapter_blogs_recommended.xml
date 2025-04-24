@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="username"
+            type="String" />
+        <variable
+            name="title"
+            type="String" />
+        <variable
+            name="summary"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--头像+昵称-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <org.nuist.blogapp.custom.CircleImageView
+                android:id="@+id/blog_item_user_avatar"
+                android:layout_width="@dimen/blog_recommended_first"
+                android:layout_height="@dimen/blog_recommended_first"
+                android:src="@drawable/aln1"
+                android:padding="4dp"
+                app:border_width="0dp"
+                app:scale_type="center_crop" />
+
+            <TextView
+                android:id="@+id/blog_item_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/blog_recommended_first"
+                android:text="@{username}"
+                android:textSize="@dimen/blog_recommended_first_text"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </LinearLayout>
+        <!--标题+摘要+封面-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <!--标题+摘要-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/blog_item_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{title}"
+                    android:textStyle="bold"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/blog_recommended_second_title" />
+
+                <TextView
+                    android:id="@+id/blog_item_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{summary}"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/blog_recommended_second_summary" />
+            </LinearLayout>
+            <!--封面-->
+            <ImageView
+                android:id="@+id/blog_item_cover"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_height="@dimen/blog_recommended_second_image"
+                android:src="@drawable/aln1"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+        <!--浏览+点赞+收藏+选项-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/blog_recommended_third"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/blog_recommended_third"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/number_visit" />
+
+            <ImageView
+                android:layout_width="@dimen/blog_recommended_third"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/number_like" />
+
+            <ImageView
+                android:layout_width="@dimen/blog_recommended_third"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/number_collect" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end">
+
+                <ImageView
+                    android:layout_width="@dimen/blog_recommended_third"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/options_h" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
