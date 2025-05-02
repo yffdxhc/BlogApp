@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bottom_menu_position_center_btm"
-        android:background="@drawable/rounded_corner_salmon_pink"/>
+        android:background="@drawable/rounded_corner_salmon_blue"/>
 
     <TextView
         android:layout_width="wrap_content"
