@@ -12,19 +12,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".view.menu.HomeFragment">
-
+        <!--状态栏-->
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="@dimen/searchBar_height"
             android:background="@color/themeBlue">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/searchBox_height"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/searchBox_marginTop">
-
+                <!--搜索框-->
                 <LinearLayout
+                    android:id="@+id/searchView"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="@dimen/searchBox_height"

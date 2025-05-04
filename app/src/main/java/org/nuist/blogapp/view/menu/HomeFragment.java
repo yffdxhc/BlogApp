@@ -1,5 +1,6 @@
 package org.nuist.blogapp.view.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.nuist.blogapp.R;
 import org.nuist.blogapp.databinding.FragmentHomeBinding;
+import org.nuist.blogapp.view.activity.SearchActivity;
 import org.nuist.blogapp.view.adapter.HomeViewPagerAdapter;
 
 public class HomeFragment extends Fragment {
@@ -39,6 +41,7 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "onCreateView: ");
 
         initView();
+        ViewListenersBinding();
 
         return binding.getRoot();
     }
@@ -69,5 +72,17 @@ public class HomeFragment extends Fragment {
         }).attach();
         // 设置初始页面为“推荐”页面
         binding.homeViewPager.setCurrentItem(1);
+    }
+
+    private void ViewListenersBinding() {
+        Log.d(TAG, "ViewListenersBinding: ");
+        binding.searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
     }
 }

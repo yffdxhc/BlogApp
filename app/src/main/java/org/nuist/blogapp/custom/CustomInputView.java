@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 
 import org.nuist.blogapp.R;
 
+/**
+ * 自定义的登录输入框
+ */
 public class CustomInputView extends LinearLayout {
     private EditText editInput;
     private TextView textAction;

@@ -17,6 +17,7 @@
     <dimen name="statusBar_highest">80dp</dimen>
     <!--搜索栏的高度-->
     <dimen name="searchBar_height">80dp</dimen>
+
     <!--搜索框的高度-->
     <dimen name="searchBox_height">50dp</dimen>
     <!--搜索框内文字高度-->
