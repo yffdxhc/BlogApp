@@ -47,6 +47,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/add"
                     android:layout_width="@dimen/add_image_width"
                     android:layout_gravity="end"
                     android:layout_height="@dimen/searchBox_height"

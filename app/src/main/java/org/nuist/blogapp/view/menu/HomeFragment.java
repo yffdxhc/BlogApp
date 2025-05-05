@@ -16,12 +16,18 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.nuist.blogapp.R;
 import org.nuist.blogapp.databinding.FragmentHomeBinding;
+import org.nuist.blogapp.model.TokenManager;
+import org.nuist.blogapp.view.activity.LoginActivity;
+import org.nuist.blogapp.view.activity.MarkdownEditorActivity;
 import org.nuist.blogapp.view.activity.SearchActivity;
 import org.nuist.blogapp.view.adapter.HomeViewPagerAdapter;
+
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
     private FragmentHomeBinding binding;
+    private TokenManager tokenManager;
 
     public HomeFragment() {
         Log.d(TAG, "HomeFragment: 无参构造");
@@ -51,6 +57,7 @@ public class HomeFragment extends Fragment {
      */
     private void initView() {
         Log.d(TAG, "initView: ");
+        tokenManager = new TokenManager(getActivity());
         // 设置viewPager2的页面
         binding.homeViewPager.setAdapter(new HomeViewPagerAdapter(this,3));
         // 切换页面
@@ -82,6 +89,20 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+            }
+        });
+        binding.add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tokenManager.getToken() == null){
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getActivity(), MarkdownEditorActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
             }
         });
     }

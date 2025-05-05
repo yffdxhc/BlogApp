@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 顶部操作栏 -->
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="?attr/colorPrimary">
+
+        <Button android:id="@+id/btn_cancel" android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content" android:text="取消"/>
+        <Button android:id="@+id/btn_preview" android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content" android:text="预览"/>
+        <Button android:id="@+id/btn_next" android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content" android:text="下一步"/>
+    </LinearLayout>
+
+    <!-- Markdown 工具栏 -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEEEEE"
+        android:padding="4dp">
+
+        <LinearLayout
+            android:id="@+id/markdown_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_bold"
+                android:text="B"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_header" android:text="H1" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_quote" android:text="❝" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_image" android:text="🖼️" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- 编辑与预览区 -->
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/edit_markdown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:hint="输入 Markdown 内容"
+            android:background="@android:color/white"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:padding="12dp"
+            android:scrollbars="vertical"
+            android:overScrollMode="always"/>
+
+        <ScrollView
+            android:id="@+id/scroll_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text_preview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:textColor="#000000"/>
+        </ScrollView>
+    </FrameLayout>
+</LinearLayout>
