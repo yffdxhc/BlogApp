@@ -3,6 +3,10 @@
     <!--首页-->
     <string name="bottom_menu_position_left">首页</string>
     <string name="bottom_menu_position_left_search_text">博客搜索</string>
+    <string name="blog_searched_visit">阅读 · </string>
+    <string name="blog_searched_comment">评论 · </string>
+    <string name="blog_searched_like">点赞</string>
+    <string name="blog_searched_time">2003–12–06</string>
 
     <!--消息-->
     <string name="bottom_menu_position_center">消息</string>

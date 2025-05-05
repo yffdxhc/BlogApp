@@ -3,64 +3,68 @@ package org.nuist.blogapp.view.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.nuist.blogapp.R;
+import org.nuist.blogapp.ViewModel.BlogViewModel;
+import org.nuist.blogapp.model.entity.Blog;
+import org.nuist.blogapp.view.adapter.BlogsSearchedAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchBlogResultFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class SearchBlogResultFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private final String TAG = "SearchBlogResultFragment";
+    private List<Blog> mBlogList = new ArrayList<>();
+    private BlogViewModel blogViewModel;
 
     public SearchBlogResultFragment() {
         // Required empty public constructor
+        Log.d(TAG, "无参构造方法");
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchBlogResultFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+    public SearchBlogResultFragment(List<Blog> blogList){
+        mBlogList = blogList;
+        Log.d(TAG, "有参构造方法，获取搜索到的博客："+ blogList);
+    }
     public static SearchBlogResultFragment newInstance(String param1, String param2) {
         SearchBlogResultFragment fragment = new SearchBlogResultFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        Log.d(TAG, "onCreate: ");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_blog_result, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_search_blog_result, container, false);
+        RecyclerView recyclerView = rootView.findViewById(R.id.blogs_searched);
+
+        // recyclerView三步
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
+        BlogsSearchedAdapter blogsSearchedAdapter = new BlogsSearchedAdapter(mBlogList);
+        recyclerView.setAdapter(blogsSearchedAdapter);
+
+/*        blogViewModel.setAndGetBlogsSearched("").observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<List<Blog>>() {
+            @Override
+            public void onChanged(List<Blog> blogs) {
+
+            }
+        });*/
+
+        return rootView;
     }
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!-- 你可以在这里添加 ViewModel 或绑定变量 -->
+        <variable
+            name="username"
+            type="String" />
+        <variable
+            name="follows"
+            type="String" />
+        <variable
+            name="isFollowed"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/statusBar_higher"
+        android:padding="8dp"
+        android:background="@color/white">
+
+        <!-- 可点击区域：头像 + 昵称 + 粉丝数 -->
+        <LinearLayout
+            android:id="@+id/clickableArea"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/followButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <!-- 头像 -->
+            <org.nuist.blogapp.custom.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/statusBar_height"
+                android:layout_height="@dimen/statusBar_height"
+                android:padding="4dp"
+                android:src="@drawable/aln1"
+                app:border_width="2dp"
+                app:border_color="@color/green"
+                app:scale_type="center_crop" />
+
+            <!-- 昵称和粉丝数 -->
+            <LinearLayout
+                android:id="@+id/infoLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{username}"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{follows}"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Follow 按钮 -->
+        <Button
+            android:id="@+id/followButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{isFollowed}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:background="@drawable/rounded_corner_white_smoke"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

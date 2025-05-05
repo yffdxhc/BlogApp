@@ -26,10 +26,14 @@
     <dimen name="searchBox_marginTop">20dp</dimen>
     <!--搜索图标padding-->
     <dimen name="search_image_padding">10dp</dimen>
+
+
     <!--添加图标padding-->
     <dimen name="add_image_padding">20dp</dimen>
     <!--添加图标宽度-->
     <dimen name="add_image_width">90dp</dimen>
+
+
     <!--博客推荐项第一行高度-->
     <dimen name="blog_recommended_first">30dp</dimen>
     <!--博客推荐项第一行文字大小-->

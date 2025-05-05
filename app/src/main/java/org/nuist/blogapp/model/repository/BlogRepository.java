@@ -78,4 +78,29 @@ public class BlogRepository {
         });
         return blogDocument;
     }
+
+    public MutableLiveData<List<Blog>> getBlogsSearched(String query) {
+        MutableLiveData<List<Blog>> blogsSearched = new MutableLiveData<>();
+        Call<Result<List<Blog>>> call = blogService.getBlogsSearched(query);
+        call.enqueue(new retrofit2.Callback<Result<List<Blog>>>() {
+            @Override
+            public void onResponse(Call<Result<List<Blog>>> call, Response<Result<List<Blog>>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<List<Blog>> result = response.body();
+                    if (result.isSuccess() && result.getData() != null) {
+                        Log.d(TAG, "获取搜索结果成功: " + result);
+                        blogsSearched.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "获取搜索结果失败: " + result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<List<Blog>>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return blogsSearched;
+    }
 }

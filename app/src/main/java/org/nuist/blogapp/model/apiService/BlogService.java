@@ -8,10 +8,13 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface BlogService {
     @GET("/blog/getBlogsRecommended")
     Call<Result<List<Blog>>> getBlogsRecommended();
     @GET("/blog/getBlogDocument/{blog_id}")
     Call<Result<String>> getBlogContent(@Path("blog_id") String blog_id);
+    @GET("/blog/getBlogsSearched")
+    Call<Result<List<Blog>>> getBlogsSearched(@Query("query") String query);
 }

@@ -9,7 +9,9 @@ import org.nuist.blogapp.model.RetrofitClient;
 import org.nuist.blogapp.model.TokenManager;
 import org.nuist.blogapp.model.apiService.UserService;
 import org.nuist.blogapp.model.entity.Result;
+import org.nuist.blogapp.model.entity.User;
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
@@ -58,6 +60,32 @@ public class UserRepository {
         });
 
         return token;
+    }
+
+    public MutableLiveData<List<User>> getUserSearched(String query) {
+        MutableLiveData<List<User>> userSearched = new MutableLiveData<>();
+        Call<Result<List<User>>> call = userServiceNoToken.getUserSearched(query);
+        call.enqueue(new Callback<Result<List<User>>>() {
+            @Override
+            public void onResponse(Call<Result<List<User>>> call, Response<Result<List<User>>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<List<User>> result = response.body();
+                    if (result.isSuccess() && result.getData() != null) {
+                        Log.d(TAG, "获取搜索结果成功: " + result);
+                        userSearched.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "获取搜索结果失败: " + result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<List<User>>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+
+        return userSearched;
     }
 }
 

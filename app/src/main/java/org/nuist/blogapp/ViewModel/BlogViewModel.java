@@ -17,6 +17,7 @@ public class BlogViewModel extends AndroidViewModel {
     private BlogRepository blogRepository;
     private MutableLiveData<List<Blog>> blogsRecommended;
     private MutableLiveData<String> blog_content;
+    private MutableLiveData<List<Blog>> blogsSearched;
     public BlogViewModel(@NonNull Application application) {
         super(application);
         Log.d(TAG, "BlogViewModel: ");
@@ -34,5 +35,11 @@ public class BlogViewModel extends AndroidViewModel {
         Log.d(TAG, "getBlogDocument: ");
         blog_content = blogRepository.getBlogDocument(blog_id);
         return blog_content;
+    }
+
+    public MutableLiveData<List<Blog>> setAndGetBlogsSearched(String query) {
+        Log.d(TAG, "getBlogsSearched: ");
+        blogsSearched = blogRepository.getBlogsSearched(query);
+        return blogsSearched;
     }
 }
