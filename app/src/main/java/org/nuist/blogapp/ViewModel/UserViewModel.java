@@ -22,6 +22,7 @@ public class UserViewModel extends AndroidViewModel {
     private UserRepository userRepository;
     private MutableLiveData<String> tokenLiveData;
     private MutableLiveData<List<User>> usersSearchedLiveData;
+    private MutableLiveData<Boolean> testLiveData;
     private TokenManager tokenManager;
 
     public UserViewModel(Application application) {
@@ -37,9 +38,8 @@ public class UserViewModel extends AndroidViewModel {
      * @return
      */
     public MutableLiveData<String> setToken(Map<String, RequestBody> partMap) {
-        if (tokenLiveData == null) {
-            tokenLiveData = userRepository.loginId(partMap);
-        }
+        Log.d(TAG, "setToken: ");
+        tokenLiveData = userRepository.loginId(partMap);
         return tokenLiveData;
     }
 
@@ -56,6 +56,12 @@ public class UserViewModel extends AndroidViewModel {
         Log.d(TAG, "setAndGetUsersSearched: ");
         usersSearchedLiveData = userRepository.getUserSearched(query);
         return usersSearchedLiveData;
+    }
+
+    public LiveData<Boolean> setAndGetTestResult() {
+        testLiveData = userRepository.test();
+        Log.d(TAG, "setAndGetTestResult: ");
+        return testLiveData;
     }
 }
 

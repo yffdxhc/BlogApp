@@ -20,4 +20,7 @@ public interface UserService {
     Call<Result<String>> loginId(@PartMap Map<String, RequestBody> partMap);
     @GET("/user/getUserSearched")
     Call<Result<List<User>>> getUserSearched(@Query("query") String query);
+
+    @POST("/user/test")
+    Call<Result<String>> test();
 }

@@ -63,6 +63,7 @@ public class MineFragment extends Fragment {
         userViewModel.getToken().observe(getActivity(), new Observer<String>(){
             @Override
             public void onChanged(String s) {
+                Log.d(TAG, "onChanged: 观察token-"+s);
                 if (s != null && !s.isEmpty()){
                     showLoggedInLayout();
                 }else{

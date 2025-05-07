@@ -21,22 +21,25 @@ import retrofit2.Response;
 
 public class UserRepository {
     private static final String TAG = "UserRepository";
-    private UserService userServiceNoToken;
+    private UserService userService;
     private TokenManager tokenManager;
 
     public UserRepository(Context context) {
         this.tokenManager = new TokenManager(context);
-        this.userServiceNoToken = RetrofitClient.getClient(context).create(UserService.class);
+        this.userService = RetrofitClient.getClient(context).create(UserService.class);
     }
 
     // 登录接口，token放到sp里
     public MutableLiveData<String> loginId(Map<String, RequestBody> partMap) {
+        Log.d(TAG, "loginId: "+partMap);
         MutableLiveData<String> token = new MutableLiveData<>();
 
-        Call<Result<String>> call = userServiceNoToken.loginId(partMap);
+        Call<Result<String>> call = userService.loginId(partMap);
         call.enqueue(new Callback<Result<String>>() {
             @Override
             public void onResponse(Call<Result<String>> call, Response<Result<String>> response) {
+                Log.d(TAG, "onResponse: " + response.code());
+                Log.d(TAG, "onResponse: " + response.body());
                 if (response.isSuccessful() && response.body() != null) {
                     Result<String> result = response.body();
                     if (result.isSuccess() && result.getData() != null) {
@@ -64,7 +67,7 @@ public class UserRepository {
 
     public MutableLiveData<List<User>> getUserSearched(String query) {
         MutableLiveData<List<User>> userSearched = new MutableLiveData<>();
-        Call<Result<List<User>>> call = userServiceNoToken.getUserSearched(query);
+        Call<Result<List<User>>> call = userService.getUserSearched(query);
         call.enqueue(new Callback<Result<List<User>>>() {
             @Override
             public void onResponse(Call<Result<List<User>>> call, Response<Result<List<User>>> response) {
@@ -86,6 +89,34 @@ public class UserRepository {
         });
 
         return userSearched;
+    }
+
+    public MutableLiveData<Boolean> test() {
+        MutableLiveData<Boolean> test = new MutableLiveData<>();
+        Call<Result<String>> call = userService.test();
+        call.enqueue(new Callback<Result<String>>() {
+            @Override
+            public void onResponse(Call<Result<String>> call, Response<Result<String>> response) {
+                Log.d(TAG, "身份验证onResponse: " + response.code());
+                Log.d(TAG, "身份验证onResponse: " + response.body());
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<String> result = response.body();
+                    if (result.isSuccess()) {
+                        Log.d(TAG, "测试成功: " + result);
+                        test.postValue(true);
+                    } else {
+                        Log.e(TAG, "测试失败: " + result.getMessage());
+                        test.postValue(false);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<String>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return test;
     }
 }
 

@@ -10,8 +10,14 @@ import org.nuist.blogapp.model.apiService.BlogService;
 import org.nuist.blogapp.model.entity.Blog;
 import org.nuist.blogapp.model.entity.Result;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -102,5 +108,52 @@ public class BlogRepository {
             }
         });
         return blogsSearched;
+    }
+
+    public MutableLiveData<Boolean> blogRelease(String blog_title,
+                                               String content,
+                                               String blog_summary,
+                                               Integer type_id,
+                                               File coverImage) {
+        Log.d(TAG, "blogRelease: "+ blog_title+ " "+content+" "+blog_summary+" "+type_id+" "+coverImage);
+        MutableLiveData<Boolean> blogReleaseResult = new MutableLiveData<>();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), coverImage);
+        MultipartBody.Part coverImagePart = MultipartBody.Part.createFormData("cover_image", coverImage.getName(), requestBody);
+
+        Map<String, RequestBody> partMap = new HashMap<>();
+        partMap.put("blog_title", RequestBody.create(MediaType.parse("multipart/form-data"), blog_title));
+        partMap.put("content", RequestBody.create(MediaType.parse("multipart/form-data"), content));
+        partMap.put("blog_summary", RequestBody.create(MediaType.parse("multipart/form-data"), blog_summary));
+        partMap.put("type_id", RequestBody.create(MediaType.parse("multipart/form-data"), type_id.toString()));
+        Log.d(TAG, "blogRelease: "+ partMap);
+
+        Call<Result<String>> call = blogService.blogRelease(
+                partMap,
+                coverImagePart
+        );
+        call.enqueue(new retrofit2.Callback<Result<String>>() {
+            @Override
+            public void onResponse(Call<Result<String>> call, Response<Result<String>> response) {
+                Log.d(TAG, "博客发布响应blogRelease: "+ response);
+                Log.d(TAG, "博客发布响应体blogRelease: "+ response.body());
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d(TAG, "blogRelease: "+ response.body());
+                    Result<String> result = response.body();
+                    if (result.isSuccess()) {
+                        Log.d(TAG, "发布博客成功: " + result);
+                        blogReleaseResult.postValue(true);
+                    } else {
+                        Log.e(TAG, "发布博客失败: " + result.getMessage());
+                        blogReleaseResult.postValue(false);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<String>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return blogReleaseResult;
     }
 }

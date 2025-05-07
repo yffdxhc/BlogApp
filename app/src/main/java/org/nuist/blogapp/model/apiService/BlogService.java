@@ -4,9 +4,16 @@ import org.nuist.blogapp.model.entity.Blog;
 import org.nuist.blogapp.model.entity.Result;
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -17,4 +24,10 @@ public interface BlogService {
     Call<Result<String>> getBlogContent(@Path("blog_id") String blog_id);
     @GET("/blog/getBlogsSearched")
     Call<Result<List<Blog>>> getBlogsSearched(@Query("query") String query);
+    @Multipart
+    @POST("/blog/blogRelease")
+    Call<Result<String>> blogRelease(
+            @PartMap Map<String, RequestBody> partMap,
+            @Part MultipartBody.Part cover_image
+    );
 }

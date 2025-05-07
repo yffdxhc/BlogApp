@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import org.nuist.blogapp.model.entity.Blog;
 import org.nuist.blogapp.model.repository.BlogRepository;
 
+import java.io.File;
 import java.util.List;
 
 public class BlogViewModel extends AndroidViewModel {
@@ -18,6 +19,7 @@ public class BlogViewModel extends AndroidViewModel {
     private MutableLiveData<List<Blog>> blogsRecommended;
     private MutableLiveData<String> blog_content;
     private MutableLiveData<List<Blog>> blogsSearched;
+    private MutableLiveData<Boolean> blogReleaseResult;
     public BlogViewModel(@NonNull Application application) {
         super(application);
         Log.d(TAG, "BlogViewModel: ");
@@ -41,5 +43,14 @@ public class BlogViewModel extends AndroidViewModel {
         Log.d(TAG, "getBlogsSearched: ");
         blogsSearched = blogRepository.getBlogsSearched(query);
         return blogsSearched;
+    }
+    public MutableLiveData<Boolean> setAndGetBlogReleaseResult(String blog_title,
+                                                              String content,
+                                                              String blog_summary,
+                                                              Integer type_id,
+                                                              File coverImage) {
+        Log.d(TAG, "blogRelease: "+ blog_title+ " "+content+" "+blog_summary+" "+type_id+" "+coverImage);
+        blogReleaseResult = blogRepository.blogRelease(blog_title, content, blog_summary, type_id, coverImage);
+        return blogReleaseResult;
     }
 }

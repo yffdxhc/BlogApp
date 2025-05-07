@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import org.nuist.blogapp.R;
 import org.nuist.blogapp.ViewModel.UserViewModel;
 import org.nuist.blogapp.custom.CustomInputView;
+import org.nuist.blogapp.model.TokenManager;
 
 import java.util.HashMap;
 
@@ -45,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     private View emailLayout; // 保存邮箱布局的引用
     private View accountLayout; // 保存账号布局的引用
 
+    private TokenManager tokenManager;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         loginStubAccount = findViewById(R.id.login_stub_account);
         loginChoice = findViewById(R.id.login_choices);
         loginChoiceBack = findViewById(R.id.login_choice_back);
+        tokenManager  = new TokenManager(this);
 
         setListener();
         showEmailLayout();
@@ -169,8 +173,10 @@ public class LoginActivity extends AppCompatActivity {
                         }}).observe(LoginActivity.this, new Observer<String>() {
                             @Override
                             public void onChanged(String s) {
+                                Log.d(TAG, "token: "+ s);
                                 if (s != null && !s.isEmpty()) {
                                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                    tokenManager.saveToken(s);
                                     finish();
                                 }else {
                                     Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
