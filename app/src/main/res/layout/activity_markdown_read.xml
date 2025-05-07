@@ -1,28 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.activity.MarkdownReadActivity">
+    android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/edit_text_markdown"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="10"
-        android:hint="输入Markdown内容" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/themeBlue">
 
-    <Button
-        android:id="@+id/button_render"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="渲染" />
+        <!-- 返回按钮 -->
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/back_small"
+            android:contentDescription="返回"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="8dp" />
 
-    <TextView
-        android:id="@+id/text_view_result"
+        <!-- 圆形头像 -->
+        <org.nuist.blogapp.custom.CircleImageView
+            android:id="@+id/avatar_image"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/aln1"
+            android:contentDescription="头像"
+            app:layout_constraintStart_toEndOf="@id/back_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp"
+            android:padding="4dp"
+            app:border_width="2dp"
+            app:border_color="@color/red"
+            app:scale_type="center_crop" />
+
+        <!-- 用户名 -->
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/avatar_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp" />
+
+        <!-- 关注按钮 -->
+        <Button
+            android:id="@+id/action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="关注"
+            android:textColor="@android:color/white"
+            android:background="@drawable/rounded_corner_gray"
+            android:padding="8dp"
+            app:layout_constraintStart_toEndOf="@id/user_name"
+            app:layout_constraintTop_toTopOf="@id/user_name"
+            app:layout_constraintBottom_toBottomOf="@id/user_name"
+            android:layout_marginStart="12dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <!-- Markdown 内容显示区域 -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/text_view_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#000000" />
+    </ScrollView>
+
+    <!-- 分割线 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0" />
+
+    <!-- 底部操作栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:gravity="center_vertical">
+
+        <!-- 点赞 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginEnd="24dp">
+
+            <ImageButton
+                android:id="@+id/button_like"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/number_like"
+                android:scaleType="centerInside"
+                android:contentDescription="点赞" />
+
+            <TextView
+                android:id="@+id/text_like_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="23"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <!-- 评论 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginEnd="24dp">
+
+            <ImageButton
+                android:id="@+id/button_comment"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/comment"
+                android:scaleType="centerInside"
+                android:contentDescription="评论" />
+
+            <TextView
+                android:id="@+id/text_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <!-- 收藏 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/button_collect"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/number_collect"
+                android:scaleType="centerInside"
+                android:contentDescription="收藏" />
+
+            <TextView
+                android:id="@+id/text_collect_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="99"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 </LinearLayout>
