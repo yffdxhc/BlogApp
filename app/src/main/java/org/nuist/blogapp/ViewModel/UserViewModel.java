@@ -23,6 +23,7 @@ public class UserViewModel extends AndroidViewModel {
     private MutableLiveData<String> tokenLiveData;
     private MutableLiveData<List<User>> usersSearchedLiveData;
     private MutableLiveData<Boolean> testLiveData;
+    private MutableLiveData<List<User>> usersFollowsLiveData;
     private TokenManager tokenManager;
 
     public UserViewModel(Application application) {
@@ -62,6 +63,12 @@ public class UserViewModel extends AndroidViewModel {
         testLiveData = userRepository.test();
         Log.d(TAG, "setAndGetTestResult: ");
         return testLiveData;
+    }
+
+    public LiveData<List<User>> setAndGetUsersFollows() {
+        Log.d(TAG, "setAndGetUsersFollows: ");
+        usersFollowsLiveData = userRepository.getUserFollows();
+        return usersFollowsLiveData;
     }
 }
 

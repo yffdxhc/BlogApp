@@ -3,64 +3,61 @@ package org.nuist.blogapp.view.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.nuist.blogapp.R;
+import org.nuist.blogapp.ViewModel.BlogViewModel;
+import org.nuist.blogapp.model.entity.Blog;
+import org.nuist.blogapp.view.adapter.HotBlogAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HotBlogListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class HotBlogListFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String TAG = "HotBlogListFragment";
+    private RecyclerView recyclerView;
+    private HotBlogAdapter hotBlogAdapter;
+    private List<Blog> hotBlogs;
+    private BlogViewModel blogViewModel;
+    private View rootView;
 
     public HotBlogListFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HotBlogListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HotBlogListFragment newInstance(String param1, String param2) {
-        HotBlogListFragment fragment = new HotBlogListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        hotBlogs = new ArrayList<>();
+        blogViewModel = new ViewModelProvider(this).get(BlogViewModel.class);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hot_blog_list, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_hot_blog_list, container, false);
+        recyclerView = rootView.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+
+        hotBlogAdapter = new HotBlogAdapter(hotBlogs);
+        recyclerView.setAdapter(hotBlogAdapter);
+
+        blogViewModel.setAndGetHotBlogs().observe(getViewLifecycleOwner(), blogs -> {
+            Log.d(TAG, "onChanged: " + blogs);
+            hotBlogs.clear();
+            hotBlogs.addAll(blogs);
+            hotBlogAdapter.notifyDataSetChanged();
+        });
+
+        return rootView;
     }
 }

@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:padding="12dp">
 
-    <ImageView
+    <org.nuist.blogapp.custom.CircleImageView
         android:id="@+id/image_avatar"
         android:layout_width="40dp"
         android:layout_height="40dp"

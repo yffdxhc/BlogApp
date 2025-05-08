@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import org.nuist.blogapp.model.RetrofitClient;
 import org.nuist.blogapp.model.TokenManager;
+import org.nuist.blogapp.model.apiService.BlogService;
 import org.nuist.blogapp.model.apiService.UserService;
+import org.nuist.blogapp.model.entity.Blog;
 import org.nuist.blogapp.model.entity.Result;
 import org.nuist.blogapp.model.entity.User;
 
@@ -22,6 +24,7 @@ import retrofit2.Response;
 public class UserRepository {
     private static final String TAG = "UserRepository";
     private UserService userService;
+    private BlogService blogService;
     private TokenManager tokenManager;
 
     public UserRepository(Context context) {
@@ -117,6 +120,31 @@ public class UserRepository {
             }
         });
         return test;
+    }
+
+    public MutableLiveData<List<User>> getUserFollows() {
+        MutableLiveData<List<User>> userFollows = new MutableLiveData<>();
+        Call<Result<List<User>>> call = userService.getUserFollows();
+        call.enqueue(new Callback<Result<List<User>>>() {
+            @Override
+            public void onResponse(Call<Result<List<User>>> call, Response<Result<List<User>>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<List<User>> result = response.body();
+                    if (result.isSuccess() && result.getData() != null) {
+                        Log.d(TAG, "获取关注列表成功: " + result);
+                        userFollows.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "获取关注列表失败: " + result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<List<User>>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return userFollows;
     }
 }
 

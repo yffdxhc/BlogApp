@@ -19,6 +19,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BlogRepository {
@@ -155,5 +156,57 @@ public class BlogRepository {
             }
         });
         return blogReleaseResult;
+    }
+
+    public MutableLiveData<List<Blog>> getBlogsByUserNumber(String userNumber) {
+        MutableLiveData<List<Blog>> blogsByUserNumber = new MutableLiveData<>();
+        Call<Result<List<Blog>>> call = blogService.getBlogsByUserNumber(userNumber);
+        call.enqueue(new Callback<Result<List<Blog>>>() {
+            @Override
+            public void onResponse(Call<Result<List<Blog>>> call, Response<Result<List<Blog>>> response) {
+                Log.d(TAG, "用户文章blogRelease: "+ response);
+                Log.d(TAG, "用户文章blogRelease: "+ response.body());
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<List<Blog>> result = response.body();
+                    if (result.isSuccess() && result.getData() != null) {
+                        Log.d(TAG, "获取用户博客成功: " + result);
+                        blogsByUserNumber.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "获取用户博客失败: " + result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<List<Blog>>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return blogsByUserNumber;
+    }
+
+    public MutableLiveData<List<Blog>> getHotBlogs() {
+        MutableLiveData<List<Blog>> hotBlogs = new MutableLiveData<>();
+        Call<Result<List<Blog>>> call = blogService.getHotBlogs();
+        call.enqueue(new Callback<Result<List<Blog>>>() {
+            @Override
+            public void onResponse(Call<Result<List<Blog>>> call, Response<Result<List<Blog>>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<List<Blog>> result = response.body();
+                    if (result.isSuccess() && result.getData() != null) {
+                        Log.d(TAG, "获取热门博客成功: " + result);
+                        hotBlogs.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "获取热门博客失败: " + result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<List<Blog>>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return hotBlogs;
     }
 }

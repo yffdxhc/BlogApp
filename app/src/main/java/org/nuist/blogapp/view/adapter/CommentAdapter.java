@@ -54,7 +54,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         // 使用 Glide 加载头像
         Glide.with(holder.avatarImage.getContext())
                 .load(comment.getAvatarUrl())
-                .placeholder(R.drawable.aln2) // 你可以换成默认头像
+                .placeholder(R.drawable.aln2) // 可以换成默认头像
                 .circleCrop()
                 .into(holder.avatarImage);
     }

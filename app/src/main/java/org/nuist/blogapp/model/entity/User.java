@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+    private String user_number;
     private String user_id;
     private String username;
     private String verificationCode;
@@ -153,5 +154,13 @@ public class User implements Serializable {
                 ", created_at=" + created_at +
                 ", status=" + status +
                 '}';
+    }
+
+    public String getUser_number() {
+        return user_number;
+    }
+
+    public void setUser_number(String user_number) {
+        this.user_number = user_number;
     }
 }

@@ -16,6 +16,10 @@ public class Blog implements Serializable {
     private Timestamp create_time;
     private Timestamp update_time;
     private String cover_image;
+    private int like;
+    private int bookmark;
+    private int visit;
+    private int comment;
 
     public Blog() {
     }
@@ -132,5 +136,37 @@ public class Blog implements Serializable {
                 ", update_time=" + update_time +
                 ", cover_image='" + cover_image + '\'' +
                 '}';
+    }
+
+    public int getComment() {
+        return comment;
+    }
+
+    public void setComment(int comment) {
+        this.comment = comment;
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
+    }
+
+    public int getBookmark() {
+        return bookmark;
+    }
+
+    public void setBookmark(int bookmark) {
+        this.bookmark = bookmark;
+    }
+
+    public int getVisit() {
+        return visit;
+    }
+
+    public void setVisit(int visit) {
+        this.visit = visit;
     }
 }

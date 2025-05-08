@@ -23,4 +23,6 @@ public interface UserService {
 
     @POST("/user/test")
     Call<Result<String>> test();
+    @GET("/user/getUserFollows")
+    Call<Result<List<User>>> getUserFollows();
 }

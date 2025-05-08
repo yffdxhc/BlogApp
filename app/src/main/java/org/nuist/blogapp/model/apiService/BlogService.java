@@ -2,6 +2,7 @@ package org.nuist.blogapp.model.apiService;
 
 import org.nuist.blogapp.model.entity.Blog;
 import org.nuist.blogapp.model.entity.Result;
+import org.nuist.blogapp.model.entity.User;
 
 import java.util.List;
 import java.util.Map;
@@ -30,4 +31,10 @@ public interface BlogService {
             @PartMap Map<String, RequestBody> partMap,
             @Part MultipartBody.Part cover_image
     );
+
+    @GET("/blog/getBlogsByUserNumber")
+    Call<Result<List<Blog>>> getBlogsByUserNumber(@Query("user_number") String userNumber);
+
+    @GET("/blog/getHotBlogs")
+    Call<Result<List<Blog>>> getHotBlogs();
 }

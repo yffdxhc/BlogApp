@@ -20,6 +20,8 @@ public class BlogViewModel extends AndroidViewModel {
     private MutableLiveData<String> blog_content;
     private MutableLiveData<List<Blog>> blogsSearched;
     private MutableLiveData<Boolean> blogReleaseResult;
+    private MutableLiveData<List<Blog>> blogsByUserNumber;
+    private MutableLiveData<List<Blog>> hotBlogs;
     public BlogViewModel(@NonNull Application application) {
         super(application);
         Log.d(TAG, "BlogViewModel: ");
@@ -52,5 +54,16 @@ public class BlogViewModel extends AndroidViewModel {
         Log.d(TAG, "blogRelease: "+ blog_title+ " "+content+" "+blog_summary+" "+type_id+" "+coverImage);
         blogReleaseResult = blogRepository.blogRelease(blog_title, content, blog_summary, type_id, coverImage);
         return blogReleaseResult;
+    }
+    public MutableLiveData<List<Blog>> setAndGetBlogsByUserNumber(String userNumber) {
+        Log.d(TAG, "getBlogsByUserNumber: ");
+        blogsByUserNumber = blogRepository.getBlogsByUserNumber(userNumber);
+        return blogsByUserNumber;
+    }
+
+    public MutableLiveData<List<Blog>> setAndGetHotBlogs() {
+        Log.d(TAG, "getHotBlogs: ");
+        hotBlogs = blogRepository.getHotBlogs();
+        return hotBlogs;
     }
 }

@@ -57,6 +57,8 @@ public class BlogRecommendedFragment extends Fragment {
 
         Log.d(TAG, "onCreateView: ");
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
+        blogsRecommendedAdapter = new BlogsRecommendedAdapter(blogsRecommended);
+        recyclerView.setAdapter(blogsRecommendedAdapter);
         blogViewModel.setAndGetBlogsRecommended().observe(getViewLifecycleOwner(), new Observer<List<Blog>>() {
             @Override
             public void onChanged(List<Blog> blogs) {
@@ -66,8 +68,6 @@ public class BlogRecommendedFragment extends Fragment {
                 blogsRecommendedAdapter.notifyDataSetChanged();
             }
         });
-        blogsRecommendedAdapter = new BlogsRecommendedAdapter(blogsRecommended);
-        recyclerView.setAdapter(blogsRecommendedAdapter);
 
         return rootView;
     }

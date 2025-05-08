@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="rank"
+            type="String" />
+        <variable
+            name="username"
+            type="String" />
+        <variable
+            name="title"
+            type="String" />
+        <variable
+            name="likeNumber"
+            type="String" />
+        <variable
+            name="visitNumber"
+            type="String" />
+        <variable
+            name="collectNumber"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/blog_hot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="top">
+
+        <!-- 排名 -->
+        <TextView
+            android:id="@+id/blog_rank_number"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:text="@{rank}"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FF5722"
+            android:gravity="center"
+            android:layout_marginTop="2dp" />
+
+        <!-- 中间内容（头像 + 昵称，上方；标题 + 数据，下方）-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <!-- 用户信息 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <org.nuist.blogapp.custom.CircleImageView
+                    android:id="@+id/blog_item_user_avatar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/aln1"
+                    app:border_width="0dp"
+                    app:scale_type="center_crop"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/blog_item_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{username}"
+                    android:textSize="12sp"
+                    android:textColor="#666666" />
+            </LinearLayout>
+
+            <!-- 标题 -->
+            <TextView
+                android:id="@+id/blog_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{title}"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#222222"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- 阅读/点赞/收藏 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{visitNumber + " 阅读"}'
+                    android:textSize="12sp"
+                    android:textColor="#888888"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{likeNumber + " 点赞"}'
+                    android:textSize="12sp"
+                    android:textColor="#888888"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{collectNumber + " 收藏"}'
+                    android:textSize="12sp"
+                    android:textColor="#888888" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 封面图 -->
+        <ImageView
+            android:id="@+id/blog_item_cover"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/aln1"
+            android:layout_marginStart="4dp"
+            android:background="@android:color/darker_gray" />
+    </LinearLayout>
+</layout>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="username"
+            type="String" />
+        <variable
+            name="title"
+            type="String" />
+        <variable
+            name="time"
+            type="String" />
+        <variable
+            name="likeNumber"
+            type="String" />
+        <variable
+            name="visitNumber"
+            type="String" />
+        <variable
+            name="collectNumber"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/blog_by_userNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <!-- 头像 + 昵称 + 时间 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <org.nuist.blogapp.custom.CircleImageView
+                android:id="@+id/blog_item_user_avatar"
+                android:layout_width="@dimen/blog_recommended_first"
+                android:layout_height="@dimen/blog_recommended_first"
+                android:src="@drawable/aln1"
+                android:padding="4dp"
+                app:border_width="0dp"
+                app:scale_type="center_crop" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+
+                <TextView
+                    android:id="@+id/blog_item_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{username}"
+                    android:textSize="@dimen/blog_recommended_first_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/blog_item_publish_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{time + " 发布了博客"}'
+                    android:textSize="12sp"
+                    android:textColor="#888888" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 内容区域（标题+封面+底部统计）-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <!-- 左侧：标题和阅读/点赞/评论 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="top">
+
+                <TextView
+                    android:id="@+id/blog_item_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{title}"
+                    android:textStyle="bold"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="#222222" />
+
+                <!-- 使用 Space 推动底部统计向下 -->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- 阅读/点赞/评论 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='@{visitNumber+"阅读"+"·"}'
+                        android:textSize="12sp"
+                        android:textColor="#999999"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='@{likeNumber+"点赞"+"·"}'
+                        android:textSize="12sp"
+                        android:textColor="#999999"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='@{collectNumber+"收藏"}'
+                        android:textSize="12sp"
+                        android:textColor="#999999" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <!-- 封面图 -->
+            <ImageView
+                android:id="@+id/blog_item_cover"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/blog_recommended_second_image"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/aln1"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
