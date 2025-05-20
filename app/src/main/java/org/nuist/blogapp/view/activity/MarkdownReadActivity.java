@@ -15,6 +15,7 @@ import org.nuist.blogapp.ViewModel.BlogViewModel;
 import org.nuist.blogapp.view.fragment.CommentBottomFragment;
 
 import io.noties.markwon.Markwon;
+import io.noties.markwon.image.glide.GlideImagesPlugin;
 
 public class MarkdownReadActivity extends AppCompatActivity {
 
@@ -40,7 +41,11 @@ public class MarkdownReadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_markdown_read);
 
-        markwon = Markwon.create(this);
+        //markwon = Markwon.create(this);
+        markwon = Markwon.builder(this)
+                .usePlugin(GlideImagesPlugin.create(this))
+                .build();
+
         blogViewModel = new ViewModelProvider(this).get(BlogViewModel.class);
 
         initViews();

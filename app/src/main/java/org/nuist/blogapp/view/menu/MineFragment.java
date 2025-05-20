@@ -20,6 +20,7 @@ import org.nuist.blogapp.ViewModel.UserViewModel;
 import org.nuist.blogapp.databinding.FragmentMineBinding;
 import org.nuist.blogapp.model.TokenManager;
 import org.nuist.blogapp.view.activity.LoginActivity;
+import org.nuist.blogapp.view.activity.WebsocketTestActivity;
 
 import java.util.Objects;
 
@@ -57,6 +58,7 @@ public class MineFragment extends Fragment {
 
         // 设置图片点击事件
         setLoginIconClickListener();
+        setLoggedIconClickListener();
         // 未登录默认布局
         showLoginLayout();
         // 根据token更换布局
@@ -94,6 +96,28 @@ public class MineFragment extends Fragment {
             }
         });
     }
+    /**
+     * 设置登录后图标点击事件
+     */
+    private void setLoggedIconClickListener() {
+        loggedInStub.setOnInflateListener(new ViewStub.OnInflateListener() {
+            @Override
+            public void onInflate(ViewStub stub, View inflated) {
+                ImageView userProfileIcon = inflated.findViewById(R.id.user_profile_icon);
+                if (userProfileIcon != null) {
+                    userProfileIcon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), WebsocketTestActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
 
     /**
      * 显示登录前布局
