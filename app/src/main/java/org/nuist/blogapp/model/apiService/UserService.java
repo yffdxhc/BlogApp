@@ -25,4 +25,10 @@ public interface UserService {
     Call<Result<String>> test();
     @GET("/user/getUserFollows")
     Call<Result<List<User>>> getUserFollows();
+
+    @GET("/user/getUserInfo")
+    Call<Result<User>> getUserInfo();
+
+    @GET("/user/getChatObject")
+    Call<Result<List<User>> > getChatObject();
 }

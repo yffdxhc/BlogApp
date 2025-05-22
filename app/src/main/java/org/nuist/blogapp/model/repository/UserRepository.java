@@ -146,5 +146,55 @@ public class UserRepository {
         });
         return userFollows;
     }
+
+    public MutableLiveData<User> getUserInfo() {
+        MutableLiveData<User> userInfo = new MutableLiveData<>();
+        Call<Result<User>> call = userService.getUserInfo();
+        call.enqueue(new Callback<Result<User>>() {
+            @Override
+            public void onResponse(Call<Result<User>> call, Response<Result<User>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<User> result = response.body();
+                    if (result.isSuccess() && result.getData() != null) {
+                        Log.d(TAG, "获取用户信息成功: " + result);
+                        userInfo.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "获取用户信息失败: " + result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<User>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return userInfo;
+    }
+
+    public MutableLiveData<List<User>> getChatObject() {
+        MutableLiveData<List<User>> chatObject = new MutableLiveData<>();
+        Call<Result<List<User>>> call = userService.getChatObject();
+        call.enqueue(new Callback<Result<List<User>>>() {
+            @Override
+            public void onResponse(Call<Result<List<User>>> call, Response<Result<List<User>>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<List<User>> result = response.body();
+                    if (result.isSuccess() && result.getData() != null) {
+                        Log.d(TAG, "获取聊天对象成功: " + result);
+                        chatObject.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "获取聊天对象失败: " + result.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<List<User>>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return chatObject;
+    }
 }
 

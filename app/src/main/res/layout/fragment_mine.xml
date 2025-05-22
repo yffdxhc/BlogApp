@@ -4,10 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
-        <variable
-            name="isLoggedIn"
-            type="boolean" />
+
     </data>
 
     <FrameLayout
@@ -18,84 +15,88 @@
         <org.nuist.blogapp.custom.ReboundScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/padding"
+                android:padding="10dp"
                 android:background="@color/whiteSmoke">
 
-                <!--登录位-->
-                <!--登录前-->
-                <ViewStub
-                    android:id="@+id/login_stub"
+                <!-- 登录前容器 -->
+                <FrameLayout
+                    android:id="@+id/mine_login_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout="@layout/fragment_mine_login_layout"/>
-                <!--登录后（默认隐藏）-->
-                <ViewStub
-                    android:id="@+id/logged_in_stub"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout="@layout/fragment_mine_logged_in_layout"/>
+                    android:layout_height="wrap_content">
+                    <include layout="@layout/fragment_mine_login_layout" />
+                </FrameLayout>
 
-                <!--广告位-->
+                <!-- 登录后容器 -->
+                <FrameLayout
+                    android:id="@+id/mine_logged_in_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include layout="@layout/fragment_mine_logged_in_layout" />
+                </FrameLayout>
+
+                <!-- 广告位 -->
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/statusBar_highest"
-                    android:background="@drawable/rounded_corner"
-                    android:src="@drawable/img"
+                    android:layout_height="120dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:scaleType="centerInside"/>
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img"
+                    android:background="@drawable/rounded_corner" />
 
-                <!--状态栏1-->
+                <!-- 状态栏1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_corner"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:orientation="horizontal">
-                    <!--元素1-->
+                    android:background="@drawable/rounded_corner">
+
                     <LinearLayout
                         android:id="@+id/user_server_item_first"
-                        android:layout_width="@dimen/statusBar_higher"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/icon_diameter"
-                        android:layout_marginLeft="@dimen/icon_diameter"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp">
+
                         <ImageView
                             android:id="@+id/user_server_image_first"
-                            android:layout_width="@dimen/icon_diameter"
-                            android:layout_height="@dimen/icon_diameter"
-                            android:src="@drawable/user_menu_left_first"/>
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/user_menu_left_first" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:text="@string/user_menu_left_first"/>
+                            android:text="@string/user_menu_left_first"
+                            android:textSize="11sp" />
                     </LinearLayout>
-                    <!--元素2-->
+
                     <LinearLayout
                         android:id="@+id/user_server_item_second"
-                        android:layout_width="@dimen/statusBar_higher"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/icon_diameter"
-                        android:layout_marginLeft="@dimen/icon_diameter"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp">
+
                         <ImageView
                             android:id="@+id/user_server_image_second"
-                            android:layout_width="@dimen/icon_diameter"
-                            android:layout_height="@dimen/icon_diameter"
-                            android:src="@drawable/user_menu_left_second"/>
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/user_menu_left_second" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -104,62 +105,66 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!--状态栏2-->
+                <!-- 状态栏2 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_corner"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_corner">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="创作中心"
-                        android:layout_gravity="left"
+                        android:textSize="12sp"
                         android:layout_marginLeft="30dp"
-                        android:textSize="12sp"/>
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="4dp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                        <!--元素1-->
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
                         <LinearLayout
                             android:id="@+id/creation_menu_item_first"
-                            android:layout_width="@dimen/statusBar_higher"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/icon_diameter"
-                            android:layout_marginLeft="@dimen/icon_diameter"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp">
+
                             <ImageView
                                 android:id="@+id/creation_menu_image_first"
-                                android:layout_width="@dimen/icon_diameter"
-                                android:layout_height="@dimen/icon_diameter"
-                                android:src="@drawable/creation_menu_left_first"/>
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/creation_menu_left_first" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="11sp"
-                                android:text="@string/creation_menu_left_first"/>
+                                android:text="@string/creation_menu_left_first"
+                                android:textSize="11sp" />
                         </LinearLayout>
-                        <!--元素2-->
+
                         <LinearLayout
                             android:id="@+id/creation_menu_item_second"
-                            android:layout_width="@dimen/statusBar_higher"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="@dimen/icon_diameter"
-                            android:layout_marginLeft="@dimen/icon_diameter"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp">
+
                             <ImageView
                                 android:id="@+id/creation_menu_image_second"
-                                android:layout_width="@dimen/icon_diameter"
-                                android:layout_height="@dimen/icon_diameter"
-                                android:src="@drawable/creation_menu_left_second"/>
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/creation_menu_left_second" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -167,24 +172,22 @@
                                 android:textSize="11sp" />
                         </LinearLayout>
                     </LinearLayout>
-                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </org.nuist.blogapp.custom.ReboundScrollView>
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/statusBar_height"
-            android:layout_gravity="top"/>
+            android:layout_height="24dp"
+            android:layout_gravity="top" />
 
         <ImageView
-            android:layout_width="@dimen/statusBar_item_height"
-            android:layout_height="@dimen/statusBar_item_height"
-            android:layout_marginTop="@dimen/statusBar_item_marginTop"
-            android:layout_marginRight="@dimen/statusBar_height_half"
-            android:layout_marginLeft="@dimen/statusBar_height_half"
-            android:src="@drawable/settings"
-            android:layout_gravity="right"/>
-
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_gravity="end"
+            android:src="@drawable/settings" />
     </FrameLayout>
-
 </layout>

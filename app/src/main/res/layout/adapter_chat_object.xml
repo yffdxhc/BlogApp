@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="username"
+            type="String" />
+        <variable
+            name="lastMessage"
+            type="String" />
+        <variable
+            name="messageTime"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- 用户头像 -->
+        <org.nuist.blogapp.custom.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/aln1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:border_width="2dp"
+            app:border_color="@color/green"
+            app:scale_type="center_crop" />
+
+        <!-- 用户名 -->
+        <TextView
+            android:id="@+id/usernameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{username}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            app:layout_constraintEnd_toStartOf="@id/messageTimeText"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginStart="12dp" />
+
+        <!-- 最后一条消息时间 -->
+        <TextView
+            android:id="@+id/messageTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{messageTime}"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="@id/usernameText"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- 最后一条消息 -->
+        <TextView
+            android:id="@+id/lastMessageText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{lastMessage}"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toStartOf="@id/usernameText"
+            app:layout_constraintTop_toBottomOf="@id/usernameText"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        TokenManager.init(this);
         tokenManager = new TokenManager(this);
         setContentView(binding.getRoot());
         Log.d(TAG, "onCreate: ");

@@ -3,33 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <!-- 可声明数据绑定变量 -->
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!--主要内容-->
+
+        <!-- 主体内容区域 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/padding"
             android:orientation="vertical">
-            <!--登录前-->
-            <ViewStub
-                android:id="@+id/message_login_stub"
+
+            <!-- 登录前布局容器（默认显示） -->
+            <!-- 使用 include 保证可以复用并且避免 ViewStub 的一次性加载限制 -->
+            <FrameLayout
+                android:id="@+id/message_login_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout="@layout/fragment_message_login_layout"/>
-            <!--登录后-->
-            <ViewStub
-                android:id="@+id/message_logged_in_stub"
+                android:layout_height="match_parent">
+                <include layout="@layout/fragment_message_login_layout" />
+            </FrameLayout>
+
+            <!-- 登录后布局容器（默认隐藏，视登录状态控制） -->
+            <FrameLayout
+                android:id="@+id/message_logged_in_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout="@layout/fragment_message_logged_in_layout"/>
+                android:layout_height="match_parent">
+                <include layout="@layout/fragment_message_logged_in_layout" />
+            </FrameLayout>
         </LinearLayout>
 
-        <!--顶部状态栏-->
+        <!-- 顶部状态栏，固定在顶部显示 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/statusBar_higher"
@@ -38,7 +44,7 @@
             android:background="@color/whiteSmoke"
             android:orientation="horizontal">
 
-            <!--第一项-->
+            <!-- 居中标题 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/statusBar_height"
@@ -47,8 +53,9 @@
                 android:layout_marginRight="@dimen/statusBar_height_half"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:textSize="30sp"/>
-            <!--第二项-->
+                android:textSize="30sp" />
+
+            <!-- 副标题 + 图标 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/statusBar_height_half"
@@ -59,25 +66,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:text="@string/bottom_menu_position_center_subtitle"/>
+                    android:text="@string/bottom_menu_position_center_subtitle" />
+
                 <ImageView
                     android:layout_width="@dimen/statusBar_height_half"
                     android:layout_height="@dimen/statusBar_height_half"
-                    android:src="@drawable/clean"/>
+                    android:src="@drawable/clean" />
             </LinearLayout>
+
+            <!-- 占位，右侧图标向右贴边 -->
             <View
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="1dp"/>
-            <!--第三项-->
+                android:layout_height="1dp" />
+
+            <!-- 设置图标（圆形头像） -->
             <org.nuist.blogapp.custom.CircleImageView
                 android:layout_width="@dimen/statusBar_item_height"
                 android:layout_height="@dimen/statusBar_item_height"
                 android:layout_marginLeft="@dimen/statusBar_height_half"
                 android:layout_marginRight="@dimen/statusBar_height_half"
                 android:layout_marginTop="@dimen/statusBar_item_marginTop"
-                android:src="@drawable/message_settings"/>
+                android:src="@drawable/message_settings" />
         </LinearLayout>
-
     </FrameLayout>
 </layout>
