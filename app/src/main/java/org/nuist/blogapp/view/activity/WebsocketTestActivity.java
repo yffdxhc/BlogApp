@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.nuist.blogapp.R;
 import org.nuist.blogapp.ViewModel.ChatViewModel;
+import org.nuist.blogapp.ViewModel.UserViewModel;
 import org.nuist.blogapp.view.adapter.ChatAdapter;
 
 public class WebsocketTestActivity extends AppCompatActivity {

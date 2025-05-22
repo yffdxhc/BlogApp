@@ -61,7 +61,8 @@ public class ChatObjectAdapter extends RecyclerView.Adapter<ChatObjectAdapter.Vi
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), ChatActivity.class);
-            intent.putExtra("user_number", chat.getUser_id());
+            intent.putExtra("user_number", chat.getUser_number());
+            intent.putExtra("userName", chat.getUsername());
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             v.getContext().startActivity(intent);
         });

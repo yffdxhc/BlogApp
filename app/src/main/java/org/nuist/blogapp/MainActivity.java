@@ -23,6 +23,8 @@ import com.google.android.material.navigation.NavigationBarView;
 import org.nuist.blogapp.ViewModel.UserViewModel;
 import org.nuist.blogapp.databinding.ActivityMainBinding;
 import org.nuist.blogapp.model.TokenManager;
+import org.nuist.blogapp.model.entity.User;
+import org.nuist.blogapp.view.adapter.ChatAdapter;
 import org.nuist.blogapp.view.menu.HomeFragment;
 import org.nuist.blogapp.view.menu.MessageFragment;
 import org.nuist.blogapp.view.menu.MineFragment;
@@ -93,6 +95,12 @@ public class MainActivity extends AppCompatActivity {
                             .show();
                     tokenManager.clearToken();
                 }
+            }
+        });
+        userViewModel.setAndGetUserInfo().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                ChatAdapter.userNumber  = user.getUser_number();
             }
         });
     }

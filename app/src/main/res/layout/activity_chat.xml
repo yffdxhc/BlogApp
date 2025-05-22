@@ -1,16 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.ChatActivity">
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ChatActivity"
-        />
+    android:padding="16dp">
 
+    <!-- 新增：显示私聊对象 -->
+    <TextView
+        android:id="@+id/chat_one_people"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="私聊对象: "
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:paddingBottom="8dp"/>
+
+    <!-- 聊天记录区域 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+    <!-- 输入框和发送按钮 -->
+    <EditText
+        android:id="@+id/inputEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入消息" />
+
+    <Button
+        android:id="@+id/sendBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送" />
 </LinearLayout>

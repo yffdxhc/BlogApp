@@ -23,6 +23,7 @@ import org.nuist.blogapp.model.RetrofitClient;
 import org.nuist.blogapp.model.entity.User;
 import org.nuist.blogapp.view.activity.LoginActivity;
 import org.nuist.blogapp.view.activity.WebsocketTestActivity;
+import org.nuist.blogapp.view.adapter.ChatAdapter;
 
 public class MineFragment extends Fragment {
 
