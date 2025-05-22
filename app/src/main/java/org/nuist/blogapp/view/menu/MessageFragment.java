@@ -16,6 +16,8 @@ import org.nuist.blogapp.ViewModel.UserViewModel;
 import org.nuist.blogapp.databinding.FragmentMessageBinding;
 import org.nuist.blogapp.model.entity.User;
 import org.nuist.blogapp.view.adapter.ChatObjectAdapter;
+import org.nuist.blogapp.websocket.EventDispatcher;
+import org.nuist.blogapp.websocket.WsManager;
 
 import java.util.ArrayList;
 import java.util.List;

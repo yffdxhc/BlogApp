@@ -30,10 +30,7 @@ public class ChatViewModel extends AndroidViewModel {
      */
     public ChatViewModel(Application application) {
         super(application);
-
-        // 建立 WebSocket 连接并注册事件监听
-        WsManager.getInstance().connect(); // 连接到 WebSocket 服务器
-        EventDispatcher.getInstance().register(this); // 注册事件监听器
+        EventDispatcher.getInstance().register(this); // 注册 @OnMessage 注解监听
     }
 
     /**

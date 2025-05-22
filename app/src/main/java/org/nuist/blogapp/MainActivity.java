@@ -28,6 +28,8 @@ import org.nuist.blogapp.view.adapter.ChatAdapter;
 import org.nuist.blogapp.view.menu.HomeFragment;
 import org.nuist.blogapp.view.menu.MessageFragment;
 import org.nuist.blogapp.view.menu.MineFragment;
+import org.nuist.blogapp.websocket.EventDispatcher;
+import org.nuist.blogapp.websocket.WsManager;
 
 /**
  * 整体框架：首页、消息、我的
@@ -82,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
+                    // 连接websocket
+                    // 建立 WebSocket 连接并注册事件监听
+                    WsManager.getInstance().connect(); // 连接到 WebSocket 服务器
+
                     new AlertDialog.Builder(MainActivity.this)
                             .setTitle("身份信息测试")
                             .setMessage("身份信息正常")
@@ -109,5 +115,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         userViewModel.getToken();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WsManager.getInstance().close();
     }
 }
