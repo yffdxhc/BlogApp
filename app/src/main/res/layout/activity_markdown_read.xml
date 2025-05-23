@@ -125,7 +125,6 @@
                 android:id="@+id/text_like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="23"
                 android:textSize="12sp"
                 android:textColor="#666666"
                 android:layout_marginTop="2dp" />
@@ -152,7 +151,6 @@
                 android:id="@+id/text_comment_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"
                 android:textSize="12sp"
                 android:textColor="#666666"
                 android:layout_marginTop="2dp" />
@@ -178,7 +176,6 @@
                 android:id="@+id/text_collect_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="99"
                 android:textSize="12sp"
                 android:textColor="#666666"
                 android:layout_marginTop="2dp" />

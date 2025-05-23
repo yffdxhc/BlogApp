@@ -209,4 +209,75 @@ public class BlogRepository {
         });
         return hotBlogs;
     }
+
+    public MutableLiveData<Blog> getBlogInfoByBlogId(String blogId){
+        MutableLiveData<Blog> blogInfo = new MutableLiveData<>();
+        blogService.getBlogInfoByBlogId(blogId).enqueue(new Callback<Result<Blog>>() {
+            @Override
+            public void onResponse(Call<Result<Blog>> call, Response<Result<Blog>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<Blog> result = response.body();
+                    if (result.isSuccess()) {
+                        Log.d(TAG, "获取博客信息成功: " + result);
+                        blogInfo.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "获取博客信息失败: " + result.getMessage());
+                        blogInfo.postValue(null);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<Blog>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return blogInfo;
+    }
+
+    public MutableLiveData<Boolean> isBlogLike(String blogId){
+        MutableLiveData<Boolean> isBlogLike = new MutableLiveData<>();
+        blogService.isBlogLike(blogId).enqueue(new Callback<Result<Boolean>>() {
+            @Override
+            public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<Boolean> result = response.body();
+                    if (result.isSuccess()) {
+                        Log.d(TAG, "判断博客是否已点赞: " + result);
+                        isBlogLike.postValue(result.getData());
+                    } else {
+                        Log.e(TAG, "判断博客是否未点赞: " + result.getMessage());
+                        isBlogLike.postValue(false);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<Boolean>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return isBlogLike;
+    }
+    public MutableLiveData<Boolean> isBlogMarked(String blogId){
+        MutableLiveData<Boolean> isBlogMarked = new MutableLiveData<>();
+        blogService.isBlogMarked(blogId).enqueue(new Callback<Result<Boolean>>() {
+            @Override
+            public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Result<Boolean> result = response.body();
+                    if (result.isSuccess()&& result.getData()!=null) {
+                        Log.d(TAG, "判断博客是否已收藏: " + result);
+                        isBlogMarked.postValue(result.getData());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<Boolean>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return isBlogMarked;
+    }
 }

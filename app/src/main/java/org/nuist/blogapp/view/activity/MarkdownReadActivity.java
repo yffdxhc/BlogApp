@@ -1,23 +1,26 @@
 package org.nuist.blogapp.view.activity;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.nuist.blogapp.R;
 import org.nuist.blogapp.ViewModel.BlogViewModel;
+import org.nuist.blogapp.model.TokenManager;
 import org.nuist.blogapp.view.fragment.CommentBottomFragment;
 
 import io.noties.markwon.Markwon;
 import io.noties.markwon.image.glide.GlideImagesPlugin;
 
 public class MarkdownReadActivity extends AppCompatActivity {
+    private static final String TAG = "MarkdownReadActivity";
 
     private BlogViewModel blogViewModel;
     private Markwon markwon;
@@ -25,6 +28,7 @@ public class MarkdownReadActivity extends AppCompatActivity {
     private TextView textView;
     private TextView textLikeCount;
     private TextView textCollectCount;
+    private TextView textCommentCount;
     private Button followButton;
     private ImageButton likeButton;
     private ImageButton collectButton;
@@ -33,15 +37,16 @@ public class MarkdownReadActivity extends AppCompatActivity {
 
     private boolean liked = false;
     private boolean collected = false;
-    private int likeCount = 23;
-    private int collectCount = 99;
+    private int likeCount = 0;
+    private int collectCount = 0;
+
+    private String blogId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_markdown_read);
 
-        //markwon = Markwon.create(this);
         markwon = Markwon.builder(this)
                 .usePlugin(GlideImagesPlugin.create(this))
                 .build();
@@ -51,8 +56,9 @@ public class MarkdownReadActivity extends AppCompatActivity {
         initViews();
         setupClickListeners();
 
-        String blogId = getExtras();
+        blogId = getExtras();
         bindMarkdownContent(blogId);
+        bindBlogInfo(blogId);
     }
 
     private void initViews() {
@@ -64,55 +70,111 @@ public class MarkdownReadActivity extends AppCompatActivity {
         textLikeCount = findViewById(R.id.text_like_count);
         textCollectCount = findViewById(R.id.text_collect_count);
         backButton = findViewById(R.id.back_button);
+        textCommentCount = findViewById(R.id.text_comment_count);
     }
 
     private void setupClickListeners() {
-        // 返回按钮
-        backButton.setOnClickListener(v -> {
-            onBackPressed();
-        });
-        // 关注按钮
+        backButton.setOnClickListener(v -> onBackPressed());
+
         followButton.setOnClickListener(v -> {
+            if (!checkLogin()) return;
             String currentText = followButton.getText().toString();
             followButton.setText(currentText.equals("关注") ? "已关注" : "关注");
         });
 
-        // 点赞按钮
         likeButton.setOnClickListener(v -> {
+            if (!checkLogin()) return;
             liked = !liked;
-            likeCount += liked ? 1 : -1;
-            textLikeCount.setText(String.valueOf(likeCount));
-            textLikeCount.setTextColor(liked ? Color.RED : Color.parseColor("#666666"));
-            likeButton.setColorFilter(liked ? Color.RED : Color.GRAY);
+            likeCount = Math.max(0, likeCount + (liked ? 1 : -1));
+            updateLikeUI();
+
+            // TODO: 向后端发送点赞/取消请求
+            // blogViewModel.likeBlog(blogId, liked);
         });
 
-        // 收藏按钮
         collectButton.setOnClickListener(v -> {
+            if (!checkLogin()) return;
             collected = !collected;
-            collectCount += collected ? 1 : -1;
-            textCollectCount.setText(String.valueOf(collectCount));
-            textCollectCount.setTextColor(collected ? Color.RED : Color.parseColor("#666666"));
-            collectButton.setColorFilter(collected ? Color.RED : Color.GRAY);
+            collectCount = Math.max(0, collectCount + (collected ? 1 : -1));
+            updateCollectUI();
+
+            // TODO: 向后端发送收藏/取消请求
+            // blogViewModel.collectBlog(blogId, collected);
         });
 
-        // 评论按钮
         commentButton.setOnClickListener(v -> {
+            if (!checkLogin()) return;
             CommentBottomFragment bottomSheet = new CommentBottomFragment();
             bottomSheet.show(getSupportFragmentManager(), "CommentBottomFragment");
         });
     }
 
-    // 绑定Markdown内容
+    private void updateLikeUI() {
+        textLikeCount.setText(String.valueOf(likeCount));
+        textLikeCount.setTextColor(liked ? Color.RED : Color.parseColor("#666666"));
+        likeButton.setColorFilter(liked ? Color.RED : Color.GRAY);
+    }
+
+    private void updateCollectUI() {
+        textCollectCount.setText(String.valueOf(collectCount));
+        textCollectCount.setTextColor(collected ? Color.RED : Color.parseColor("#666666"));
+        collectButton.setColorFilter(collected ? Color.RED : Color.GRAY);
+    }
+
     private void bindMarkdownContent(String blogId) {
         blogViewModel.setAndGetBlogContent(blogId).observe(this, markdownText -> {
             markwon.setMarkdown(textView, markdownText);
         });
     }
 
-    // 获取传递过来的数据
+    private void bindBlogInfo(String blogId) {
+        blogViewModel.setAndGetBlogInfoByBlogId(blogId).observe(this, blog -> {
+            if (blog != null) {
+                likeCount = blog.getLike();
+                collectCount = blog.getBookmark();
+                int commentCount = blog.getComment();
+
+                textLikeCount.setText(String.valueOf(likeCount));
+                textCollectCount.setText(String.valueOf(collectCount));
+                textCommentCount.setText(String.valueOf(commentCount));
+            }
+        });
+
+        blogViewModel.setAndGetIsBlogLike(blogId).observe(this, isLiked -> {
+            liked = isLiked;
+            updateLikeUI();
+        });
+
+
+        blogViewModel.setAndGetIsBlogMarked(blogId).observe(this, isCollected -> {
+            collected = isCollected;
+            updateCollectUI();
+        });
+    }
+
     private String getExtras() {
         Bundle bundle = getIntent().getExtras();
         return bundle != null ? bundle.getString("blog_id") : null;
     }
-}
 
+    private boolean checkLogin() {
+        String token = TokenManager.getInstance().getToken();
+        if (token == null || token.trim().isEmpty()) {
+            showLoginDialog();
+            return false;
+        }
+        return true;
+    }
+
+    private void showLoginDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("您还未登录，是否前往登录？")
+                .setPositiveButton("确定", (dialog, which) -> {
+                    // TODO: 跳转登录页
+                    dialog.dismiss();
+                })
+                .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+}

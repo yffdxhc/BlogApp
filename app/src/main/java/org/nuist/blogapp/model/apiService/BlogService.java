@@ -37,4 +37,13 @@ public interface BlogService {
 
     @GET("/blog/getHotBlogs")
     Call<Result<List<Blog>>> getHotBlogs();
+
+    @GET("/blog/getBlogInfoByBlogId")
+    Call<Result<Blog>> getBlogInfoByBlogId(@Query("blog_id") String blogId);
+
+    @GET("/blog/isBlogLike")
+    Call<Result<Boolean>> isBlogLike(@Query("blog_id") String blogId);
+
+    @GET("/blog/isBlogMarked")
+    Call<Result<Boolean>> isBlogMarked(@Query("blog_id") String blogId);
 }

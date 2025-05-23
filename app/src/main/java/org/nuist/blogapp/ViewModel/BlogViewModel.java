@@ -22,6 +22,9 @@ public class BlogViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> blogReleaseResult;
     private MutableLiveData<List<Blog>> blogsByUserNumber;
     private MutableLiveData<List<Blog>> hotBlogs;
+    private MutableLiveData<Blog> blogInfoByBlogId;
+    private MutableLiveData<Boolean> isBlogLike;
+    private MutableLiveData<Boolean> isBlogMarked;
     public BlogViewModel(@NonNull Application application) {
         super(application);
         Log.d(TAG, "BlogViewModel: ");
@@ -65,5 +68,21 @@ public class BlogViewModel extends AndroidViewModel {
         Log.d(TAG, "getHotBlogs: ");
         hotBlogs = blogRepository.getHotBlogs();
         return hotBlogs;
+    }
+    public MutableLiveData<Blog> setAndGetBlogInfoByBlogId(String blogId) {
+        Log.d(TAG, "getBlogInfoByBlogId: ");
+        blogInfoByBlogId = blogRepository.getBlogInfoByBlogId(blogId);
+        return blogInfoByBlogId;
+    }
+
+    public MutableLiveData<Boolean> setAndGetIsBlogLike(String blogId) {
+        Log.d(TAG, "isBlogLike: ");
+        isBlogLike = blogRepository.isBlogLike(blogId);
+        return isBlogLike;
+    }
+    public MutableLiveData<Boolean> setAndGetIsBlogMarked(String blogId) {
+        Log.d(TAG, "isBlogMarked: ");
+        isBlogMarked = blogRepository.isBlogMarked(blogId);
+        return isBlogMarked;
     }
 }
