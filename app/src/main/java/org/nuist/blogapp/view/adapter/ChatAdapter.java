@@ -97,15 +97,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         set.applyTo(layout);
 
 
-// 设置头像
-        String avatarUrl = isMe
-                ? message.getSenderInfo().getAvatar()
-                : message.getReceiverInfo().getAvatar();
+// 始终使用发送者的头像
+        String avatarUrl = message.getSenderInfo() != null ? message.getSenderInfo().getAvatar() : "";
 
         Glide.with(holder.itemView.getContext())
                 .load(RetrofitClient.getBaseUrl() + avatarUrl)
                 .signature(new ObjectKey(String.valueOf(System.currentTimeMillis())))
                 .into(holder.user_avatar);
+
 
 
 
