@@ -46,4 +46,7 @@ public interface BlogService {
 
     @GET("/blog/isBlogMarked")
     Call<Result<Boolean>> isBlogMarked(@Query("blog_id") String blogId);
+
+    @POST("/blog/likeButton")
+    Call<Result<Boolean>> likeButton(@Query("blog_id") String blogId);
 }

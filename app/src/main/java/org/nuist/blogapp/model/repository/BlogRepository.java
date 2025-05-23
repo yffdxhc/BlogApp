@@ -280,4 +280,27 @@ public class BlogRepository {
         });
         return isBlogMarked;
     }
+
+    public MutableLiveData<Boolean> likeButton(String blogId){
+        MutableLiveData<Boolean> likeButton = new MutableLiveData<>();
+        Call<Result<Boolean>> call = blogService.likeButton(blogId);
+        call.enqueue(new Callback<Result<Boolean>>() {
+            @Override
+            public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
+                if (response.isSuccessful() && response.body() != null){
+                    Result<Boolean> result = response.body();
+                    if (result.isSuccess()){
+                        Log.d(TAG, "点赞成功: " + result);
+                        likeButton.postValue(result.getData());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<Boolean>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return likeButton;
+    }
 }

@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.nuist.blogapp.R;
@@ -89,7 +90,12 @@ public class MarkdownReadActivity extends AppCompatActivity {
             updateLikeUI();
 
             // TODO: 向后端发送点赞/取消请求
-            // blogViewModel.likeBlog(blogId, liked);
+            blogViewModel.setAndGetLikeButtonResult(blogId).observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    Log.d(TAG, "onChanged: "+aBoolean);
+                }
+            });
         });
 
         collectButton.setOnClickListener(v -> {

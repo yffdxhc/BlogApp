@@ -25,6 +25,7 @@ public class BlogViewModel extends AndroidViewModel {
     private MutableLiveData<Blog> blogInfoByBlogId;
     private MutableLiveData<Boolean> isBlogLike;
     private MutableLiveData<Boolean> isBlogMarked;
+    private MutableLiveData<Boolean> likeButtonResult;
     public BlogViewModel(@NonNull Application application) {
         super(application);
         Log.d(TAG, "BlogViewModel: ");
@@ -84,5 +85,10 @@ public class BlogViewModel extends AndroidViewModel {
         Log.d(TAG, "isBlogMarked: ");
         isBlogMarked = blogRepository.isBlogMarked(blogId);
         return isBlogMarked;
+    }
+    public MutableLiveData<Boolean> setAndGetLikeButtonResult(String blogId) {
+        Log.d(TAG, "likeButton: ");
+        likeButtonResult = blogRepository.likeButton(blogId);
+        return likeButtonResult;
     }
 }
