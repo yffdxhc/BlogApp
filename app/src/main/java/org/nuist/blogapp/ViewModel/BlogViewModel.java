@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import org.nuist.blogapp.model.entity.Blog;
+import org.nuist.blogapp.model.entity.Comment;
 import org.nuist.blogapp.model.repository.BlogRepository;
 
 import java.io.File;
@@ -26,6 +27,8 @@ public class BlogViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> isBlogLike;
     private MutableLiveData<Boolean> isBlogMarked;
     private MutableLiveData<Boolean> likeButtonResult;
+    private MutableLiveData<Boolean> bookMarkButtonResult;
+    private MutableLiveData<List<Comment>> comments;
     public BlogViewModel(@NonNull Application application) {
         super(application);
         Log.d(TAG, "BlogViewModel: ");
@@ -90,5 +93,16 @@ public class BlogViewModel extends AndroidViewModel {
         Log.d(TAG, "likeButton: ");
         likeButtonResult = blogRepository.likeButton(blogId);
         return likeButtonResult;
+    }
+    public MutableLiveData<Boolean> setAndGetBookMarkButtonResult(String blogId) {
+        Log.d(TAG, "bookMarkButton: ");
+        bookMarkButtonResult = blogRepository.bookMarkButton(blogId);
+        return bookMarkButtonResult;
+    }
+
+    public MutableLiveData<List<Comment>> setAndGetComments(String blogId) {
+        Log.d(TAG, "getComments: ");
+        comments = blogRepository.getComments(blogId);
+        return comments;
     }
 }

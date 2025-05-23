@@ -1,6 +1,7 @@
 package org.nuist.blogapp.model.apiService;
 
 import org.nuist.blogapp.model.entity.Blog;
+import org.nuist.blogapp.model.entity.Comment;
 import org.nuist.blogapp.model.entity.Result;
 import org.nuist.blogapp.model.entity.User;
 
@@ -49,4 +50,9 @@ public interface BlogService {
 
     @POST("/blog/likeButton")
     Call<Result<Boolean>> likeButton(@Query("blog_id") String blogId);
+    @POST("/blog/bookMarkButton")
+    Call<Result<Boolean>> bookMarkButton(@Query("blog_id") String blogId);
+
+    @GET("/blog/getComments")
+    Call<Result<List<Comment>>> getComments(@Query("blog_id") String blogId);
 }

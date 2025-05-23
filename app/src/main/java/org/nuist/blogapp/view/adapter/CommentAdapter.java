@@ -48,15 +48,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull CommentAdapter.ViewHolder holder, int position) {
         Comment comment = commentList.get(position);
-        holder.nicknameText.setText(comment.getNickname());
+        holder.nicknameText.setText(comment.getUser_number());
         holder.contentText.setText(comment.getContent());
 
-        // 使用 Glide 加载头像
+/*        // 使用 Glide 加载头像
         Glide.with(holder.avatarImage.getContext())
                 .load(comment.getAvatarUrl())
                 .placeholder(R.drawable.aln2) // 可以换成默认头像
                 .circleCrop()
-                .into(holder.avatarImage);
+                .into(holder.avatarImage);*/
     }
 
     @Override

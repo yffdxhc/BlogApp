@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import org.nuist.blogapp.model.RetrofitClient;
 import org.nuist.blogapp.model.apiService.BlogService;
 import org.nuist.blogapp.model.entity.Blog;
+import org.nuist.blogapp.model.entity.Comment;
 import org.nuist.blogapp.model.entity.Result;
 
 import java.io.File;
@@ -303,4 +304,70 @@ public class BlogRepository {
         });
         return likeButton;
     }
+    public MutableLiveData<Boolean> bookMarkButton(String blogId){
+        MutableLiveData<Boolean> bookMarkButton = new MutableLiveData<>();
+        Call<Result<Boolean>> call = blogService.bookMarkButton(blogId);
+        call.enqueue(new Callback<Result<Boolean>>() {
+            @Override
+            public void onResponse(Call<Result<Boolean>> call, Response<Result<Boolean>> response) {
+                if (response.isSuccessful() && response.body() != null){
+                    Result<Boolean> result = response.body();
+                    if (result.isSuccess()&& result.getData()!=null){
+                        Log.d(TAG, "收藏成功: " + result);
+                        bookMarkButton.postValue(result.getData());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<Boolean>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败", t);
+            }
+        });
+        return bookMarkButton;
+    }
+
+    public MutableLiveData<List<Comment>> getComments(String blogId) {
+        Log.d(TAG, "getComments called with blogId: " + blogId);
+        MutableLiveData<List<Comment>> comments = new MutableLiveData<>();
+
+        Call<Result<List<Comment>>> call = blogService.getComments(blogId);
+        Log.d(TAG, "Enqueuing network call: " + call.request().url());
+
+        call.enqueue(new Callback<Result<List<Comment>>>() {
+            @Override
+            public void onResponse(Call<Result<List<Comment>>> call, Response<Result<List<Comment>>> response) {
+                Log.d(TAG, "onResponse called");
+                Log.d(TAG, "Response code: " + response.code());
+                if (response.isSuccessful()) {
+                    Result<List<Comment>> result = response.body();
+                    if (result != null) {
+                        Log.d(TAG, "Response body: " + result.toString());
+                        if (result.isSuccess()) {
+                            Log.d(TAG, "获取评论成功, 数据大小: " + (result.getData() != null ? result.getData().size() : 0));
+                            comments.postValue(result.getData());
+                        } else {
+                            Log.e(TAG, "获取评论失败, 服务返回错误: " + result.getMessage());
+                            comments.postValue(null);
+                        }
+                    } else {
+                        Log.e(TAG, "响应成功但返回体为空");
+                        comments.postValue(null);
+                    }
+                } else {
+                    Log.e(TAG, "响应失败, code: " + response.code() + ", message: " + response.message());
+                    comments.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result<List<Comment>>> call, Throwable t) {
+                Log.e(TAG, "网络请求失败: " + t.getMessage(), t);
+                comments.postValue(null);
+            }
+        });
+
+        return comments;
+    }
+
 }
